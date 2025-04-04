@@ -16,8 +16,8 @@ const Navbar = () => {
         <BsBugFill className="text-xl hover:text-zinc-500" />
       </Link>
       <ul className="flex space-x-6">
-        {links.map((link) => (
-          <Link
+        {links.map((link, index) => (
+          <Link key={index}
             className={classNames({
               "text-zinc-500 ": link.href !== currentpath,
               "text-zinc-900 ": link.href === currentpath,
