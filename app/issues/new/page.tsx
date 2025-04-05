@@ -26,6 +26,20 @@ const NewIssue = () => {
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const Submit = handleSubmit(async (data) => {
+    console.log(data);
+    await axios
+      .post("/api/issue", data)
+      .then(() => {
+        router.push("/issues");
+        setIsSubmitting(true);
+      })
+      .catch((err) => {
+        setError(err.message);
+        setIsSubmitting(false);
+      });
+  })
+  
   return (
     <div className="max-w-xl ">
       <div className="mb-5">
@@ -40,19 +54,7 @@ const NewIssue = () => {
       </div>
       <form
         className="space-y-3"
-        onSubmit={handleSubmit(async (data) => {
-          console.log(data);
-          await axios
-            .post("/api/issue", data)
-            .then(() => {
-              router.push("/issues");
-              setIsSubmitting(true);
-            })
-            .catch((err) => {
-              setError(err.message);
-              setIsSubmitting(false);
-            });
-        })}
+        onSubmit={Submit}
       >
         <TextField.Root placeholder="Title" {...register("title")} />
         {errors.title && <ErrorMessage>{errors.title.message}</ErrorMessage>}
