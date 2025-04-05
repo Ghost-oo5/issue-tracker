@@ -1,10 +1,10 @@
-import type { Metadata } from "next";
-import Navbar from "./Navbar";
+import { Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
-import './theme-config.css'
-import "./globals.css";
-import { Theme, ThemePanel } from "@radix-ui/themes";
+import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import "./globals.css";
+import Navbar from "./Navbar";
+import './theme-config.css';
 
 const inter = Inter({
 	subsets: ["latin"],
@@ -27,8 +27,7 @@ export default function RootLayout({
       <body >
         <Theme accentColor="red">
           <Navbar/>
-          <main className="px-1">{children}</main>
-          {/* <ThemePanel/> */}
+          <main className="p-5">{children}</main>
         </Theme>
       </body>
     </html>
