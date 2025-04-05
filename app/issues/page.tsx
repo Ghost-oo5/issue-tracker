@@ -34,7 +34,7 @@ const IssuesPage = async () => {
             <Table.Row key={item.id}>
               <Table.Cell>{item.id}</Table.Cell>
               <Table.Cell>
-                {item.title}
+                <Link href={`/issues/${item.id}`}>{item.title}</Link>
                 <div className="block md:hidden">
                   {" "}
                   <IssueStatusBadge status={item.status} />
