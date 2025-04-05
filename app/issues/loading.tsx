@@ -1,17 +1,15 @@
-import { prisma } from "@/prisma/client";
-import { Button, Table } from "@radix-ui/themes";
-import Link from "next/link";
+import { Table } from "@radix-ui/themes";
 import React from "react";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import IssueStatusBadge from "../components/IssueStatusBadge";
-import delay from "delay";
 import IssuesActions from "./IssuesActions";
+const LoadingIssuesPage = () => {
+  const issues = [1, 2, 3, 4, 5];
 
-const IssuesPage = async () => {
-  const issues = await prisma.issue.findMany();
-  await delay(2000);
   return (
     <>
-      <IssuesActions />
+    <IssuesActions/>
       <Table.Root variant="surface">
         <Table.Header>
           <Table.Row>
@@ -31,25 +29,28 @@ const IssuesPage = async () => {
         </Table.Header>
         <Table.Body>
           {issues.map((item) => (
-            <Table.Row key={item.id}>
-              <Table.Cell>{item.id}</Table.Cell>
+            <Table.Row>
               <Table.Cell>
-                {item.title}
+                <Skeleton />
+              </Table.Cell>
+              <Table.Cell>
+                <Skeleton />
                 <div className="block md:hidden">
-                  {" "}
-                  <IssueStatusBadge status={item.status} />
+                  <Skeleton />
                 </div>
               </Table.Cell>
               <Table.Cell className="hidden md:table-cell">
-                {item.description}
+                <Skeleton />
               </Table.Cell>
               <Table.Cell className="hidden md:table-cell">
                 {" "}
-                <IssueStatusBadge status={item.status} />{" "}
+                <Skeleton />{" "}
               </Table.Cell>
-              <Table.Cell>{item.createdAt.toDateString()}</Table.Cell>
+              <Table.Cell>
+                <Skeleton />
+              </Table.Cell>
               <Table.Cell className="hidden md:table-cell">
-                {item.updatedAt.toDateString()}
+                <Skeleton />
               </Table.Cell>
             </Table.Row>
           ))}
@@ -59,4 +60,4 @@ const IssuesPage = async () => {
   );
 };
 
-export default IssuesPage;
+export default LoadingIssuesPage;
