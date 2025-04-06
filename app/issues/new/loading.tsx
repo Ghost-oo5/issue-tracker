@@ -1,9 +1,12 @@
-import React from 'react'
-
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 const IssueDetailLoadingPage = () => {
   return (
-    <div>Loading...</div>
-  )
-}
+    <div className="max-w-xl ">
+     <Skeleton/>
+     <Skeleton height={'15rem'}/>
+    </div>
+  );
+};
 
-export default IssueDetailLoadingPage
+export default IssueDetailLoadingPage;
