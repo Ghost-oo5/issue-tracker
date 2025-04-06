@@ -16,12 +16,12 @@ const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
   ssr: false,
 });
 
-interface Props{
-    issue?:Issue
+interface Props {
+  issue?: Issue;
 }
 
 type IssueFormData = z.infer<typeof createIssueSchema>;
-const IssueForm = ({issue}:Props) => {
+const IssueForm = ({ issue }: Props) => {
   const {
     register,
     control,
@@ -36,16 +36,28 @@ const IssueForm = ({issue}:Props) => {
 
   const Submit = handleSubmit(async (data) => {
     console.log(data);
-    await axios
-      .post("/api/issue", data)
-      .then(() => {
-        router.push("/issues");
-        setIsSubmitting(true);
-      })
-      .catch((err) => {
-        setError(err.message);
-        setIsSubmitting(false);
-      });
+    if (issue) {
+      axios
+        .patch("/api/issue/" + issue.id, data)
+        .then(() => {
+          router.push(`/issues/${issue.id}`);
+          setIsSubmitting(true);
+        })
+        .catch((err) => {
+          setError(err.message);
+          setIsSubmitting(false);
+        });
+    } else
+      await axios
+        .post("/api/issue", data)
+        .then(() => {
+          router.push("/issues");
+          setIsSubmitting(true);
+        })
+        .catch((err) => {
+          setError(err.message);
+          setIsSubmitting(false);
+        });
   });
 
   return (
@@ -61,7 +73,11 @@ const IssueForm = ({issue}:Props) => {
         )}
       </div>
       <form className="space-y-3" onSubmit={Submit}>
-        <TextField.Root placeholder="Title" defaultValue={issue?.title} {...register("title")} />
+        <TextField.Root
+          placeholder="Title"
+          defaultValue={issue?.title}
+          {...register("title")}
+        />
         {errors.title && <ErrorMessage>{errors.title.message}</ErrorMessage>}
         <Controller
           name="description"
@@ -82,7 +98,8 @@ const IssueForm = ({issue}:Props) => {
         </div>
 
         <Button disabled={isSubmitting} type="submit">
-          Submit new Issue {isSubmitting && <Spinner />}
+          {issue ? "update issue" : "Submit new Issue"}{" "}
+          {isSubmitting && <Spinner />}
         </Button>
       </form>
     </div>
