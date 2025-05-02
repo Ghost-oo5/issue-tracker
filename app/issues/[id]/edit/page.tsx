@@ -1,12 +1,13 @@
 import { prisma } from "@/prisma/client";
-import IssueForm from "../../_components/page";
+import IssueForm from "../../_components/IssueFrom";
 import { notFound } from "next/navigation";
 
 interface Props {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
-const EditIssuePage = async ({ params: { id } }: Props) => {
+const EditIssuePage = async ({ params }: Props) => {
+  const {id} = await params;
   const issue = await prisma.issue.findUnique({
     where: {
       id: parseInt(id),

@@ -1,5 +1,5 @@
 "use client";
-import IssueForm from "../_components/page";
+import IssueForm from "../_components/IssueFrom";
 
 const NewIssue = () => {
   return <IssueForm />;
