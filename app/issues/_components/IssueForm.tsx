@@ -92,7 +92,6 @@ const IssueForm = ({ issue }: Props) => {
             <ErrorMessage>{errors.description.message}</ErrorMessage>
           )}
         </div>
-
         <Button disabled={isSubmitting} type="submit">
           {issue ? "update issue" : "Submit new Issue"}{" "}
           {isSubmitting && <Spinner />}

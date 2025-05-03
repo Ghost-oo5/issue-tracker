@@ -1,5 +1,5 @@
 "use client";
-import { Button, Dialog, Flex } from "@radix-ui/themes";
+import { Button, Dialog, Flex, Spinner } from "@radix-ui/themes";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -12,8 +12,10 @@ interface DeleteIssue {
 const DeleteIssueButton = ({ IssueName, IssueID }: DeleteIssue) => {
   const route = useRouter();
   const [error, setError] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const HandleDeleteIssue = async () => {
+    setIsDeleting(true);
     await axios
       .delete(`/api/issue/ ${IssueID}`)
       .then(() => {
@@ -23,6 +25,7 @@ const DeleteIssueButton = ({ IssueName, IssueID }: DeleteIssue) => {
       .catch((error) => {
         error.message;
         setError(true);
+        setIsDeleting(false);
       });
   };
 
@@ -30,7 +33,9 @@ const DeleteIssueButton = ({ IssueName, IssueID }: DeleteIssue) => {
     <>
       <Dialog.Root>
         <Dialog.Trigger>
-          <Button color="red">Delete Issue</Button>
+          <Button color="red" disabled={isDeleting} type="submit">
+            {isDeleting ? <Spinner /> : "Delete"}
+          </Button>
         </Dialog.Trigger>
         <Dialog.Content maxWidth="450px">
           <Dialog.Title>Delete Issue</Dialog.Title>
