@@ -1,11 +1,16 @@
+'use client'
 import { Button, Dialog, Flex } from "@radix-ui/themes";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 interface DeleteIssue {
   IssueID: number;
-  IssueName: string
+  IssueName: string;
 }
 
-const DeleteIssueButton = ({  IssueName }: DeleteIssue) => {
+const DeleteIssueButton = ({ IssueName, IssueID }: DeleteIssue) => {
+  const route = useRouter();
+
   return (
     <>
       <Dialog.Root>
@@ -24,7 +29,15 @@ const DeleteIssueButton = ({  IssueName }: DeleteIssue) => {
               </Button>
             </Dialog.Close>
             <Dialog.Close>
-              <Button>Delete</Button>
+              <Button
+                onClick={async () => {
+                  await axios.delete(`/api/issue/ ${IssueID}`);
+                  route.push("/issues");
+                  route.refresh();
+                }}
+              >
+                Delete
+              </Button>
             </Dialog.Close>
           </Flex>
         </Dialog.Content>
