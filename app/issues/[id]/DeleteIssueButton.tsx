@@ -1,17 +1,36 @@
-import { Button } from '@radix-ui/themes'
+import { Button, Dialog, Flex } from "@radix-ui/themes";
 
-interface DeleteIssue{
-    IssueID: number
+interface DeleteIssue {
+  IssueID: number;
+  IssueName: string
 }
 
-const DeleteIssueButton = ({IssueID}:DeleteIssue) => {
+const DeleteIssueButton = ({  IssueName }: DeleteIssue) => {
   return (
-<>
-<Button color='red'>
-    Delete Issue
-</Button>
-</>
-)
-}
+    <>
+      <Dialog.Root>
+        <Dialog.Trigger>
+          <Button color="red">Delete Issue</Button>
+        </Dialog.Trigger>
+        <Dialog.Content maxWidth="450px">
+          <Dialog.Title>Delete Issue</Dialog.Title>
+          <Dialog.Description size="2" mb="4">
+            Are you sure you want to delete {IssueName} ?
+          </Dialog.Description>
+          <Flex gap="3" mt="4" justify="end">
+            <Dialog.Close>
+              <Button variant="soft" color="gray">
+                Cancel
+              </Button>
+            </Dialog.Close>
+            <Dialog.Close>
+              <Button>Delete</Button>
+            </Dialog.Close>
+          </Flex>
+        </Dialog.Content>
+      </Dialog.Root>
+    </>
+  );
+};
 
-export default DeleteIssueButton
+export default DeleteIssueButton;
