@@ -5,6 +5,7 @@ import {
   Container,
   DropdownMenu,
   Flex,
+  Spinner,
   Text,
 } from "@radix-ui/themes";
 import classNames from "classnames";
@@ -62,7 +63,7 @@ const AuthStatus = () => {
   return (
     <>
       <Box>
-        {status === "loading" && <Text>Loading...</Text>}
+        {status === "loading" && <Spinner />}
         {status === "authenticated" && (
           <DropdownMenu.Root>
             <DropdownMenu.Trigger>
