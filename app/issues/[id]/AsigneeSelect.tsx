@@ -4,7 +4,7 @@ import { Select } from "@radix-ui/themes";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Skeleton } from "@/app/components/index";
-
+import toast, { Toaster } from "react-hot-toast";
 interface Props {
   issue: Issue;
 }
@@ -28,7 +28,11 @@ const AsigneeSelect = ({ issue }: Props) => {
         defaultValue={issue.assignedToUserId || ""}
         onValueChange={(userID) => {
           const assignedToUserId = userID === "unassigned" ? null : userID;
-          axios.patch("/api/issue/" + issue.id, { assignedToUserId });
+          axios
+            .patch("/api/issue/" + issue.id, { assignedToUserId })
+            .catch(() => {
+              toast.error("Changes could not be saved");
+            });
         }}
       >
         <Select.Trigger placeholder="Assign..." />
@@ -45,6 +49,7 @@ const AsigneeSelect = ({ issue }: Props) => {
           </Select.Group>
         </Select.Content>
       </Select.Root>
+      <Toaster />
     </>
   );
 };
