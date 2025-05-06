@@ -10,10 +10,10 @@ interface Props {
 
 export async function PATCH(request: NextRequest, { params }: Props) {
   const { id } = await params;
-  const session = await getServerSession(AuthOptions);
-  if(!session){
-    return NextResponse.json({},{status:401})
-  }
+  // const session = await getServerSession(AuthOptions);
+  // if(!session){
+  //   return NextResponse.json({},{status:401})
+  // }
   const body = await request.json();
   const validation = await PatchIssueSchema.safeParse(body);
   if (!validation.success) {
