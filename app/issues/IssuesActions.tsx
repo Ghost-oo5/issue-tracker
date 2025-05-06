@@ -1,15 +1,17 @@
-import { Button } from '@radix-ui/themes'
+import { Button, Flex } from '@radix-ui/themes'
 import Link from 'next/link'
 import React from 'react'
+import IssueStatus from './IssueStatusFilter'
 
 const IssuesActions = () => {
   return (
     <>
-          <div  className='mb-5'>
+          <Flex  className='mb-5' justify={'between'}>
+            <IssueStatus/>
               <Button>
                 <Link href="issues/new">New issue</Link>
               </Button>
-          </div>
+          </Flex>
     </>
   )
 }
