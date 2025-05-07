@@ -26,9 +26,10 @@ const columns: {
   { label: "Created", value: "createdAt", className: "hidden md:table-cell" },
   { label: "Updated", value: "updatedAt", className: "hidden md:table-cell" },
 ];
+const validOrderByColumns: (keyof Issue)[] = columns.map(c => c.value).filter(Boolean) as (keyof Issue)[];
+
 const IssuesPage = async ({ searchParams }: Props) => {
-  const { status } = await searchParams;
-  const { orderBy } = await searchParams;
+  const { status, orderBy } = await searchParams;
 
   const isValidStatus = (s: string): s is Status =>
     Object.values(Status).includes(s as Status);
@@ -36,11 +37,15 @@ const IssuesPage = async ({ searchParams }: Props) => {
   const statusFilter = isValidStatus(status ?? "")
     ? (status as Status)
     : undefined;
+    const orderByColumn = validOrderByColumns.includes(orderBy) ? orderBy : 'createdAt';
 
   const issues = await prisma.issue.findMany({
     where: {
       status: statusFilter,
     },
+    orderBy:{
+      [orderByColumn]: "asc"
+    }
   });
   return (
     <>
