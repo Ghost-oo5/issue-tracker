@@ -1,15 +1,30 @@
 import {
-  prisma,
+  IssuesActions,
   IssueStatusBadge,
   Links,
-  IssuesActions,
+  prisma,
 } from "@/app/components/index";
+import { Status } from "@prisma/client";
 import { Table } from "@radix-ui/themes";
-import delay from "delay";
 
-const IssuesPage = async () => {
-  const issues = await prisma.issue.findMany();
-  await delay(2000);
+interface Props {
+  searchParams: Promise<{ status: Status }>;
+}
+
+const IssuesPage = async ({ searchParams }: Props) => {
+  const { status } = await searchParams;
+  const isValidStatus = (s: string): s is Status =>
+    Object.values(Status).includes(s as Status);
+
+  const statusFilter = isValidStatus(status ?? "")
+    ? (status as Status)
+    : undefined;
+
+  const issues = await prisma.issue.findMany({
+    where: {
+      status: statusFilter,
+    },
+  });
   return (
     <>
       <IssuesActions />
@@ -60,5 +75,5 @@ const IssuesPage = async () => {
   );
 };
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 export default IssuesPage;
