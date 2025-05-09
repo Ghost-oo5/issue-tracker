@@ -13,8 +13,8 @@ const validOrderByColumns: (keyof Issue)[] = columns
   .filter(Boolean) as (keyof Issue)[];
 
 const IssuesPage = async ({ searchParams }: Props) => {
-  const { status, orderBy } = await searchParams;
-  const page = parseInt(searchParams.page) || 1;
+  const { status, orderBy, page: pageParam } = await searchParams;
+  const page = parseInt(pageParam) || 1;
   const pageSize = 10;
   const isValidStatus = (s: string): s is Status =>
     Object.values(Status).includes(s as Status);
@@ -37,7 +37,9 @@ const IssuesPage = async ({ searchParams }: Props) => {
     take: pageSize,
   });
 
-  const issueCount = await prisma.issue.count({ where: { status } });
+  const issueCount = await prisma.issue.count({
+    where: { status: statusFilter },
+  });
   return (
     <Flex direction={"column"} gap={"3"}>
       <IssuesActions />
