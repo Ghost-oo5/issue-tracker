@@ -21,7 +21,7 @@ export const columns: {
   value: keyof Issue;
   className?: string;
 }[] = [
-  { label: "Id", value: "id" },
+  // { label: "Id", value: "id" },
   { label: "Issue", value: "title" },
   { label: "Description", value: "description" },
   { label: "Status", value: "status", className: "hidden md:table-cell" },
@@ -62,7 +62,7 @@ const IssueTable = ({ searchParams, issues }: Props) => {
         <Table.Body>
           {issues.map((item) => (
             <Table.Row key={item.id}>
-              <Table.Cell>{item.id}</Table.Cell>
+              {/* <Table.Cell>{item.id}</Table.Cell> */}
               <Table.Cell>
                 <Links href={`/issues/${item.id}`}>{item.title}</Links>
                 <div className="block md:hidden">
