@@ -30,9 +30,9 @@ export default function RootLayout({
       <body>
         <QueryClientProvider>
           <AuthProvider>
-            <Theme accentColor="red"  className="max-xl:px-5">
+            <Theme accentColor="red"  className="">
               <Navbar />
-              <main className="min-h-screen mb-5">
+              <main className="min-h-screen mb-5 max-xl:px-5">
                 <Container>{children}</Container>
               </main>
               <Footer/>
