@@ -1,6 +1,6 @@
 # Ghost OO5 Issue Tracker
 
-A simple, full-stack Issue Tracker application built with **Next.js**, **TypeScript**, **Prisma**, **NextAuth**, **Tailwind CSS**, and **Radix UI**. This project provides a clean UI for creating, viewing, editing, assigning, and closing issues, backed by a MySQL database and secured with Google Authentication.
+A simple, full-stack Issue Tracker application built with **Next.js**, **TypeScript**, **Prisma**, **NextAuth**, **Tailwind CSS**, and **Radix UI**. This project provides a clean UI for creating, viewing, editing, assigning, and closing issues, backed by a Supabase database and secured with Google Authentication.
 
 ## 🔧 Features
 
@@ -20,7 +20,7 @@ A simple, full-stack Issue Tracker application built with **Next.js**, **TypeScr
 
   * Frontend: Next.js (App Router), React, TypeScript, Radix UI, Tailwind CSS
 
-  * Backend: Next.js API Routes, Prisma ORM, MySQL
+  * Backend: Next.js API Routes, Prisma ORM, Supabase (Postgres)
 
   * State Management & Data Fetching: React Query (TanStack Query)
 
@@ -32,7 +32,7 @@ A simple, full-stack Issue Tracker application built with **Next.js**, **TypeScr
 
 * Node.js v18 or later
 
-* MySQL database (or compatible)
+* Supabase database (or compatible)
 
 * Google OAuth credentials (Client ID & Secret)
 
@@ -61,7 +61,7 @@ A simple, full-stack Issue Tracker application built with **Next.js**, **TypeScr
    Create a `.env` file in the root with the following (example):
 
    ```
-   DATABASE_URL="mysql://USER:PASSWORD@HOST:PORT/DATABASE"
+   DATABASE_URL="Supabase://USER:PASSWORD@HOST:PORT/DATABASE"
    GOOGLE_CLIENT_ID=your_google_client_id
    GOOGLE_CLIENT_SECRET=your_google_client_secret
    NEXTAUTH_URL=http://localhost:3000
