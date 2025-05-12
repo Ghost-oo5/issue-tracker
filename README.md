@@ -1,36 +1,169 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ghost OO5 Issue Tracker
 
-## Getting Started
+A simple, full-stack Issue Tracker application built with **Next.js**, **TypeScript**, **Prisma**, **NextAuth**, **Tailwind CSS**, and **Radix UI**. This project provides a clean UI for creating, viewing, editing, assigning, and closing issues, backed by a MySQL database and secured with Google Authentication.
 
-First, run the development server:
+## 🔧 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+* **Authentication**: Google OAuth via NextAuth.js
+
+* **Issue Management**:
+
+  * Create, edit, delete issues
+
+  * Assign issues to users
+
+  * Filter by status (Open, In Progress, Closed)
+
+  * Pagination and sorting
+
+* **Tech Stack**:
+
+  * Frontend: Next.js (App Router), React, TypeScript, Radix UI, Tailwind CSS
+
+  * Backend: Next.js API Routes, Prisma ORM, MySQL
+
+  * State Management & Data Fetching: React Query (TanStack Query)
+
+  * Markdown Support: react-simplemde-editor & react-markdown
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+* Node.js v18 or later
+
+* MySQL database (or compatible)
+
+* Google OAuth credentials (Client ID & Secret)
+
+### Installation
+
+1. **Clone the repository**
+
+   ```
+   git clone [https://github.com/your-username/ghost-oo5-issue-tracker.git](https://github.com/your-username/ghost-oo5-issue-tracker.git)
+   cd ghost-oo5-issue-tracker
+
+   ```
+
+2. **Install dependencies**
+
+   ```
+   npm install
+   # or
+   yarn install
+   # or
+   pnpm install
+
+   ```
+
+3. **Environment Variables**
+   Create a `.env` file in the root with the following (example):
+
+   ```
+   DATABASE_URL="mysql://USER:PASSWORD@HOST:PORT/DATABASE"
+   GOOGLE_CLIENT_ID=your_google_client_id
+   GOOGLE_CLIENT_SECRET=your_google_client_secret
+   NEXTAUTH_URL=http://localhost:3000
+
+   ```
+
+4. **Database Setup & Migrations**
+   Generate Prisma client and run migrations:
+
+   ```
+   npx prisma generate
+   npx prisma migrate deploy
+   # or for development:
+   npx prisma migrate dev --name init
+
+   ```
+
+5. **Run the Development Server**
+
+   ```
+   npm run dev
+   # or
+   yarn dev
+   # or
+   pnpm dev
+
+   ```
+
+   Visit `http://localhost:3000` in your browser.
+
+## 📦 Available Scripts
+
+* `dev` – Start Next.js in development mode
+
+* `build` – Build the production-ready app
+
+* `start` – Start the production server
+
+* `lint` – Run ESLint
+
+See `package.json` for full details.
+
+## 🗂 Project Structure
+
+```
+├── app/                # Next.js App Router
+│   ├── api/            # API routes: auth, issue, users
+│   ├── components/     # Shared UI components
+│   ├── issues/         # Issue pages and sub-components
+│   ├── globals.css     # Global styles & theme
+│   └── layout.tsx      # Root layout with providers
+├── prisma/             # Prisma schema & migrations
+├── public/             # Static assets
+├── middleware.ts       # NextAuth middleware
+├── next.config.ts      # Next.js configuration
+├── tailwind.config.ts  # Tailwind configuration
+└── tsconfig.json       # TypeScript configuration
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🔒 Authentication & Authorization
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Uses NextAuth.js with the Prisma Adapter.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Only authenticated users can create, edit, or delete issues.
 
-## Learn More
+Middleware protects the “New Issue” page.
 
-To learn more about Next.js, take a look at the following resources:
+## 📄 Database Schema
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Defined in `prisma/schema.prisma`:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+model Issue {
+  id               Int      @id @default(autoincrement())
+  title            String   @db.VarChar(255)
+  description      String   @db.Text
+  status           Status   @default(OPEN)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  assignedToUserId String?  @db.VarChar(255)
+  assignedToUser   User?    @relation(fields: [assignedToUserId], references: [id])
+}
 
-## Deploy on Vercel
+enum Status {
+  OPEN
+  IN_PROGRESS
+  CLOSED
+}
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Run `npx prisma studio` to browse data in a GUI.
+
+## 📫 Contributing
+
+1. Fork the repository
+
+2. Create a feature branch (`git checkout -b feature/my-feature`)
+
+3. Commit your changes (`git commit -m 'Add awesome feature'`)
+
+4. Push to the branch (`git push origin feature/my-feature`)
+
+5. Open a Pull Request
