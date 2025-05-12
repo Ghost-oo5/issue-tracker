@@ -1,4 +1,5 @@
 "use client";
+import logo from "@/public/Bug.svg";
 import {
   Avatar,
   Box,
@@ -10,9 +11,9 @@ import {
 } from "@radix-ui/themes";
 import classNames from "classnames";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BsBugFill } from "react-icons/bs";
 const Navbar = () => {
   return (
     <nav className="border-b h-16 mb-5">
@@ -20,7 +21,8 @@ const Navbar = () => {
         <Flex justify="between" className="w-full items-center">
           <div className="flex space-x-6 border-b h-16 items-center">
             <Link href={"/"}>
-              <BsBugFill className="text-xl hover:text-zinc-500" />
+              {/* <BsBugFill className="text-xl hover:text-zinc-500" /> */}
+              <Image src={logo} width={25} height={25} alt="Bug image"/>
             </Link>
             <NavLinks />
           </div>
