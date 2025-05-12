@@ -29,7 +29,7 @@ export default function RootLayout({
       <body>
         <QueryClientProvider>
           <AuthProvider>
-            <Theme accentColor="red">
+            <Theme accentColor="red"  className="max-xl:px-5">
               <Navbar />
               <main>
                 <Container>{children}</Container>
