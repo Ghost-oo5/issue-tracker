@@ -20,7 +20,7 @@ A simple, full-stack Issue Tracker application built with **Next.js**, **TypeScr
 
   * Frontend: Next.js (App Router), React, TypeScript, Radix UI, Tailwind CSS
 
-  * Backend: Next.js API Routes, Prisma ORM, MySQL
+  * Backend: Next.js API Routes, Prisma ORM, Supabase (Postgres)
 
   * State Management & Data Fetching: React Query (TanStack Query)
 
