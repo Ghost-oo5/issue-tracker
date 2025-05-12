@@ -17,13 +17,13 @@ const DeleteIssueButton = ({ IssueName, IssueID }: DeleteIssue) => {
   const HandleDeleteIssue = async () => {
     setIsDeleting(true);
     await axios
-      .delete(`/api/issue/ ${IssueID}`)
+      .delete(`/api/issue/${IssueID}`)
       .then(() => {
         route.push("/issues");
         route.refresh();
       })
       .catch((error) => {
-        error.message;
+        console.error(error.message); 
         setError(true);
         setIsDeleting(false);
       });

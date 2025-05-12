@@ -6,7 +6,7 @@ import IssueTable, { columns, IssueQuery } from "./IssueTable";
 import { Metadata } from "next";
 
 interface Props {
-  searchParams: IssueQuery;
+  searchParams: Promise<IssueQuery>;
 }
 
 const validOrderByColumns: (keyof Issue)[] = columns

@@ -9,7 +9,7 @@ interface Props {
 }
 
 const IssueSummary = ({ closed, inprogress, open }: Props) => {
-  let containers: {
+  const containers: {
     label: string;
     value: number;
     status: Status;

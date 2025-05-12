@@ -11,7 +11,7 @@ export interface IssueQuery {
 }
 
 interface Props {
-  searchParams: IssueQuery;
+  searchParams: Promise<IssueQuery>;
   issues: Issue[];
 }
 
@@ -29,8 +29,8 @@ export const columns: {
   { label: "Updated", value: "updatedAt", className: "hidden md:table-cell" },
 ];
 
-const IssueTable = ({ searchParams, issues }: Props) => {
-  const { orderBy, status } = searchParams;
+const IssueTable = async ({ searchParams, issues }: Props) => {
+  const { orderBy, status } = await searchParams;
   const isValidStatus = (s: string): s is Status =>
     Object.values(Status).includes(s as Status);
 
